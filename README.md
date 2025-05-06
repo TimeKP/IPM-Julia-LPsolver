@@ -30,7 +30,8 @@ To run a **specific** LPnetlib example (instead of the full benchmark suite), yo
 # To test an individual LPnetlib problem, uncomment this block:
 # -------------------------------------------------------------
 # 'lp_afiro','lp_brandy','lp_fit1d','lp_adlittle','lp_agg','lp_ganges','lp_stocfor1', 'lp_25fv47', 'lpi_chemcom'
-# problem =  mdopen("LPnetlib/lp_afiro")
+# raw_problem =  mdopen("LPnetlib/lp_afiro")
+# problem = convert_matrixdepot(raw_problem)
 # println("Problem = lp_afiro")
 
 # Solve the linear programming problem
