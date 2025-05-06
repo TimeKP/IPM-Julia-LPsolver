@@ -115,7 +115,8 @@ end
 # To test an individual LPnetlib problem, uncomment this block:
 # -------------------------------------------------------------
 # 'lp_afiro','lp_brandy','lp_fit1d','lp_adlittle','lp_agg','lp_ganges','lp_stocfor1', 'lp_25fv47', 'lpi_chemcom'
-# problem =  mdopen("LPnetlib/lp_afiro")
+# raw_problem =  mdopen("LPnetlib/lp_afiro")
+# problem = convert_matrixdepot(raw_problem)
 # println("Problem = lp_afiro")
 
 # Solve the linear programming problem
@@ -141,15 +142,15 @@ println("-----------------------------------------------------------------------
 for pname in problems
     try
         # Load and convert problem from MatrixDepot
-        problem = mdopen("LPnetlib/$pname")
-        problem_clp = convert_matrixdepot(problem)
+        raw_problem = mdopen("LPnetlib/$pname")
+        problem = convert_matrixdepot(raw_problem)
 
         # Solve using our custom Interior-Point Method (IPM) solver
         sol, iter_count, ipm_time = iplp(problem)
         ipm_obj = sol.cs' * sol.xs
 
         # Solve using reference CLP solver for comparison
-        clp_obj, clp_time = solve_with_clp(problem_clp.A, problem_clp.b, problem_clp.c)
+        clp_obj, clp_time = solve_with_clp(problem.A, problem.b, problem.c)
 
         # Print results in table
         println(
